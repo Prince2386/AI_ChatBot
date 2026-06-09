@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.local
+
+# Build folders
+dist/
+build/
+.next/
+out/
+
+# Logs
+*.log
+
+# Coverage
+coverage/
+
+# Vite
+.vite/
+
+# OS files
+.DS_Store
+
+# IDE files
+.vscode/
+.idea/
