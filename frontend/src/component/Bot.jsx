@@ -12,27 +12,34 @@ function Bot() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages])
 
-  const handleSendMessage = async () => {
-    setLoading(true);
-    if (!input.trim()) return;
-    try {
-      const res = await axios.post(
-        "https://ai-chatbot-ansu.onrender.com/bot/v1/message",
-        {
-          text: input
-        }
-      )
-      if (res.status === 200) {
-        setMessages([...messages, { text: res.data.userMessage, sender: 'user' }, { text: res.data.botMessage, sender: 'bot' }]);
 
-      }
-      console.log(res.data)
-    } catch (error) {
-      console.log("Error sending message:", error);
+
+
+// frontend/src/components/Bot.jsx
+const handleSendMessage = async () => {
+  setLoading(true);
+  if (!input.trim()) return;
+  try {
+    // Use local URL explicitly for testing
+    const res = await axios.post("http://localhost:4002/bot/v1/message", {
+      text: input
+    });
+
+    if (res.status === 200) {
+      setMessages([...messages, 
+          { text: res.data.userMessage, sender: 'user' }, 
+          { text: res.data.botMessage, sender: 'bot' }
+      ]);
     }
-    setInput("");
-    setLoading(false);
+  } catch (error) {
+    console.log("Error details:", error.response?.data || error.message);
   }
+  setInput("");
+  setLoading(false);
+}
+
+
+
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') handleSendMessage()

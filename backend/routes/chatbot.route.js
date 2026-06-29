@@ -1,8 +1,10 @@
-import express from 'express'
-import { Message } from '../controllers/chatbot.message.js'
+// backend/routes/chatbot.route.js
+import express from 'express';
+import { sendMessage } from '../controllers/chatbot.controllers.js';
 
-const router = express.Router()
+const router = express.Router();
 
-router.post('/message',Message)
+// The full path becomes /bot/v1/message
+router.post('/message', sendMessage);
 
 export default router;
